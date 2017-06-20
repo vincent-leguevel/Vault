@@ -1,10 +1,16 @@
-import os, json
+import os, json, encrypt
 
 class Configuration:
 
     def __init__(self, source):
-        self._source = open(source, 'r')
-        self._conf = json.load(self._source)
+        if type(source) is str:
+            self._source = open(source, 'r')
+            self._conf = json.load(self._source)
+        elif( type(source) is dict):
+            self._source = source
+            self._conf = source
+        else :
+            raise ValueError("INVALID CONFIGURATION")
 
     def __str__(self):
         return json.dumps(self._conf)

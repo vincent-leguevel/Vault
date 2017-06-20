@@ -1,1 +1,1 @@
-{"user": {"name": "<USER_NAME>", "pass": "<USER_PASSWORD>"}, "dictionary": {"encrypt": "<ENCRYPT_CLASS>", "emp": "<DICTIONNARY_EMPLACEMENT>"}}
+{"file": {"encrypt": "<ENCRYPT_CLASS>", "dico_emp": "<DICTIONNARY_EMPLACEMENT>", "in":"<FILE_SOURCE_OF_FILES>","out":"<FILE_DESTINATION_OF_FILES>"}}

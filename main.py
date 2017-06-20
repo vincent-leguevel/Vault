@@ -1,9 +1,8 @@
 from configuration import Configuration
 from user import User
+import encrypt
 
-conf = Configuration('./configuration/conf.json')
+user_infos = Configuration('./configuration/user.conf.json')
+user = User(user_infos.get('user').get('name'), user_infos.get('user').get('pass'))
 
-test = User(conf)
-
-print(test.connect(1, 'test'))
-
+print user
