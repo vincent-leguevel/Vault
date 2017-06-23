@@ -7,3 +7,5 @@
 *.iml
 out
 gen
+/configuration/conf.json
+/configuration/*.conf.json
