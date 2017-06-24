@@ -1,5 +1,5 @@
 from Tkinter import *
-import tkMessageBox, tkFileDialog, configuration, user, encrypt, ttk, file, shutil, os
+import tkMessageBox, tkFileDialog, configuration, encrypt, file, shutil, os
 
 class interface:
 
@@ -9,7 +9,6 @@ class interface:
         if view_func:
             self.active = dict()
             self.active[view] = None
-            print self.active
             view_func()
 
     def view_exist(self, view_name):
@@ -22,7 +21,6 @@ class interface:
     def change(self, new_active_view):
         view = self.view_exist(new_active_view)
         for active_view in self.active.keys():
-            print type(self.active[active_view])
             if type(self.active[active_view]) is not NoneType:
                 self.active[active_view].destroy()
         if view:
