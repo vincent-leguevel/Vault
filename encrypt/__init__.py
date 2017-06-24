@@ -6,17 +6,20 @@ class encryptor:
 
     def __init__(self, conf):
         self._set_conf(conf)
+        self.in_directory = os.path.realpath('./') + '/' + self.conf.get('file').get('in')
+        self.out_directory = os.path.realpath('./') + '/' + self.conf.get('file').get('out')
 
     def symbol_generator(self):
         return {
             1: chr(int(math.ceil(25 * random.random()))+97),
             2: chr(int(math.ceil(25 * random.random()))+65),
-            3: str(int(math.ceil(10 * random.random())))
+            3: str(int(math.ceil(9 * random.random())))
         }[int(math.ceil(3 * random.random()))]
 
     def file_name_generator(self, length = 15):
+        print length
         name = ''
-        for i in range(0,length):
+        for i in range(length):
             name += self.symbol_generator()
         return name
 
@@ -44,11 +47,9 @@ class encryptor:
         if not out_filename:
             out_filename = self.file_name_generator()
 
-        in_file = os.path.realpath('./') + '/' + self.conf.get('file').get('in')+'/' +in_filename
+        in_file = self.in_directory + '/'  + in_filename
 
-        out_file = os.path.realpath('./') + '/' + self.conf.get('file').get('out')+'/'+out_filename + '.enc'
-
-        print in_file, out_file, os.path.realpath('./')
+        out_file = self.out_directory + '/' + out_filename + '.enc'
 
         iv = ''.join(chr(random.randint(0, 0xFF)) for i in range(16))
         encryptor = AES.new(key, AES.MODE_CBC, iv)
@@ -79,8 +80,8 @@ class encryptor:
         if not out_filename:
             out_filename = os.path.splitext(in_filename)[0]
 
-        out_file = os.path.realpath('./') + '/' + self.conf.get('file').get('in')+'/' +out_filename
-        in_file = os.path.realpath('./') + '/' + self.conf.get('file').get('out')+'/' +in_filename
+        out_file = self.in_directory + '/' + out_filename
+        in_file = self.out_directory + '/' + in_filename
 
         with open(in_file, 'rb') as infile:
             origsize = struct.unpack('<Q', infile.read(struct.calcsize('Q')))[0]
@@ -95,6 +96,15 @@ class encryptor:
                     outfile.write(decryptor.decrypt(chunk))
 
                 outfile.truncate(origsize)
+
+    def del_encrypted_file(self, file_name):
+        try:
+            os.remove(self.out_directory + '/' + file_name)
+        except Exception as e:
+            raise e
+
+    def save(self):
+        self.conf.save()
 
     def _get_conf(self):
         return self.conf

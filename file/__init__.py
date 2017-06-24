@@ -105,6 +105,11 @@ class FilesList:
             file = new_file
         self.files.append(file)
 
+    def get_file(self, name):
+        for file in self.files:
+            if file.source_name == name:
+                return file.get_file()
+
     def del_file(self, name):
         for file in self.files:
             if file.source_name == name:
