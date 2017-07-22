@@ -81,6 +81,12 @@ class interface:
         app_conf = configuration.Configuration('./configuration/conf.json')
         self.session['encryptor'] = encrypt.encryptor(app_conf)
 
+        if(not os.path.exists(self.session['encryptor'].in_directory)):
+            os.mkdir(self.session['encryptor'].in_directory)
+
+        if(not os.path.exists(self.session['encryptor'].out_directory)):
+            os.mkdir(self.session['encryptor'].out_directory)
+
         file_list = configuration.Configuration('./configuration/file.conf.json')
         self.session['files'] = file.FilesList(file_list)
 

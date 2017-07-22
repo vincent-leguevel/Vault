@@ -17,7 +17,6 @@ class encryptor:
         }[int(math.ceil(3 * random.random()))]
 
     def file_name_generator(self, length = 15):
-        print length
         name = ''
         for i in range(length):
             name += self.symbol_generator()
