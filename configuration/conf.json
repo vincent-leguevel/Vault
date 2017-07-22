@@ -1,1 +1,1 @@
-{"file": {"encrypt": "<ENCRYPT_CLASS>", "dico_emp": "<DICTIONNARY_EMPLACEMENT>", "in":"<FILE_SOURCE_OF_FILES>","out":"<FILE_DESTINATION_OF_FILES>"}}
+{"file": {"dico_emp": "/configuration/file.conf.json", "out": "encrypted_file", "encrypt": "AES", "in": "tmp"}}
