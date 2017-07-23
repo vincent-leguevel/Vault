@@ -1,5 +1,3 @@
-from configuration import Configuration
-from encrypt import *
 valid_type = ['AES']
 
 class File:
