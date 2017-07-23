@@ -133,13 +133,13 @@ class interface:
             for file_o in self.session['files'].files:
                 if file_o.source_name == new_file_name:
                     return tkMessageBox.showerror('Already exist', 'un fichier portant ce nom existe deja')
-            shutil.copyfile(new_file.name, self.session['encryptor'].in_directory + '/' + new_file_name)
+            shutil.copyfile(new_file.name, self.session['encryptor'].in_directory + os.path.sep + new_file_name)
             file_key = self.session['encryptor'].file_name_generator(16)
             encrypted_file_name = self.session['encryptor'].file_name_generator()
             self.session['encryptor'].encrypt_file(file_key, new_file_name, encrypted_file_name)
             self.session['files'].add_file(file.File(new_file_name, encrypted_file_name + '.enc', self.session['encryptor'].conf.get('file').get('encrypt'), file_key))
             file_listbox.insert('end', new_file_name)
-            os.remove(self.session['encryptor'].in_directory + '/' + new_file_name)
+            os.remove(self.session['encryptor'].in_directory + os.path.sep + new_file_name)
 
         def button_get_file():
             index_selection = file_listbox.curselection()
@@ -149,8 +149,8 @@ class interface:
                 if stored_file:
                     self.session['encryptor'].decrypt_file(stored_file['key'], stored_file['encrypted_name'], stored_file['name'])
                     out_new_file = tkFileDialog.askdirectory(title="Selectionner un fichier", initialdir='/')
-                    shutil.copyfile(self.session['encryptor'].in_directory + '/' + stored_file['name'], out_new_file + '/' + stored_file['name'])
-                    os.remove(self.session['encryptor'].in_directory + '/' + stored_file['name'])
+                    shutil.copyfile(self.session['encryptor'].in_directory + os.path.sep + stored_file['name'], out_new_file + os.path.sep + stored_file['name'])
+                    os.remove(self.session['encryptor'].in_directory + os.path.sep + stored_file['name'])
 
         def save():
             for instance in self.session:
