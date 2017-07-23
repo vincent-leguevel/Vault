@@ -6,8 +6,8 @@ class encryptor:
 
     def __init__(self, conf):
         self._set_conf(conf)
-        self.in_directory = os.path.realpath('./') + os.pathsep + os.pathsep.join(self.conf.get('file').get('in').split('/'))
-        self.out_directory = os.path.realpath('./') + os.pathsep + os.pathsep.join(self.conf.get('file').get('out').split('/'))
+        self.in_directory = os.path.realpath('./') + os.path.sep + os.path.sep.join(self.conf.get('file').get('in').split('/'))
+        self.out_directory = os.path.realpath('./') + os.path.sep + os.path.sep.join(self.conf.get('file').get('out').split('/'))
 
     def symbol_generator(self):
         return {
@@ -46,9 +46,9 @@ class encryptor:
         if not out_filename:
             out_filename = self.file_name_generator()
 
-        in_file = self.in_directory + os.pathsep  + in_filename
+        in_file = self.in_directory + os.path.sep  + in_filename
 
-        out_file = self.out_directory + os.pathsep + out_filename + '.enc'
+        out_file = self.out_directory + os.path.sep + out_filename + '.enc'
 
         iv = ''.join(chr(random.randint(0, 0xFF)) for i in range(16))
         encryptor = AES.new(key, AES.MODE_CBC, iv)
@@ -79,8 +79,8 @@ class encryptor:
         if not out_filename:
             out_filename = os.path.splitext(in_filename)[0]
 
-        out_file = self.in_directory + os.pathsep + out_filename
-        in_file = self.out_directory + os.pathsep + in_filename
+        out_file = self.in_directory + os.path.sep + out_filename
+        in_file = self.out_directory + os.path.sep + in_filename
 
         with open(in_file, 'rb') as infile:
             origsize = struct.unpack('<Q', infile.read(struct.calcsize('Q')))[0]
@@ -98,7 +98,7 @@ class encryptor:
 
     def del_encrypted_file(self, file_name):
         try:
-            os.remove(self.out_directory + os.pathsep + file_name)
+            os.remove(self.out_directory + os.path.sep + file_name)
         except Exception as e:
             raise e
 
