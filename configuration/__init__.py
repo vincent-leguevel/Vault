@@ -8,8 +8,7 @@ class Configuration:
             self._set_configuration(json.load(self.source))
             self.file = True
         elif( type(source) is dict):
-            self._set_source(source)
-            self._set_conf(source)
+            self._set_configuration(source)
             self.file = False
         else :
             raise ValueError("INVALID CONFIGURATION")
